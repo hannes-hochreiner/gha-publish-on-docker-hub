@@ -12,8 +12,9 @@ async function init() {
     const dockerFullName = `${dockerUserName}/${dockerRepo}:${dockerTag}`;
 
     await exec.exec('docker', ['build', '.', '-t', dockerFullName]);
-    await exec.exec('docker', ['login', '-u', dockerUserName, '-p', dockerToken]);
+    await exec.exec('docker', ['login', '-u', dockerUserName, '--password-stdin'], {input: dockerToken});
     await exec.exec('docker', ['push', dockerFullName]);
+    await exec.exec('docker', ['logout']);
   } catch (error) {
     core.setFailed(error.message);
   }
