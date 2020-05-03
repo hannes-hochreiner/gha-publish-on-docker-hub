@@ -1,0 +1,12 @@
+name: 'Publish on Docker Hub'
+description: 'Publish a package on Docker Hub'
+inputs:
+  docker-user-name:
+    description: 'Docker user name'
+    required: true
+  docker-token:
+    description: 'Docker token'
+    required: true
+runs:
+  using: 'node12'
+  main: 'dist/main.js'
