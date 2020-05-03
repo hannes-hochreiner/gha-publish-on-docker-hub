@@ -11,7 +11,7 @@ async function init() {
     console.log(`GITHUB_REPOSITORY: ${process.env.GITHUB_REPOSITORY}`);
     const dockerFullName = `${dockerUserName}/${dockerRepo}:${dockerTag}`;
 
-    await exec.exec('docker', ['build', '-t', dockerFullName]);
+    await exec.exec('docker', ['build', '.', '-t', dockerFullName]);
     await exec.exec('docker', ['login', '-u', dockerUserName, '-p', dockerToken]);
     await exec.exec('docker', ['push', dockerFullName]);
   } catch (error) {
