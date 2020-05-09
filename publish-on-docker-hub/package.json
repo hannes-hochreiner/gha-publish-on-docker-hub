@@ -1,6 +1,6 @@
 {
   "name": "publish-on-docker-hub",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "GitHub action to publish a container on Docker Hub",
   "main": "dist/main.js",
   "scripts": {
