@@ -1,5 +1,5 @@
-import {default as core} from '@actions/core';
-import {default as exec} from '@actions/exec'
+import * as core from '@actions/core';
+import * as exec from '@actions/exec';
 import {run} from './action';
 
 async function init() {
