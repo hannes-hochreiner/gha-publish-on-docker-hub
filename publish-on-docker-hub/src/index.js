@@ -10,8 +10,17 @@ async function init() {
     console.log(`GITHUB_REF: ${process.env.GITHUB_REF}`);
     console.log(`GITHUB_REPOSITORY: ${process.env.GITHUB_REPOSITORY}`);
     const dockerFullName = `${dockerUserName}/${dockerRepo}:${dockerTag}`;
+    let buildArgs = ['build', '.', '-t', dockerFullName];
+    const dockerTagTokens = dockerTag.split('.');
 
-    await exec.exec('docker', ['build', '.', '-t', dockerFullName]);
+    if (dockerTagTokens.length == 3 && dockerTagTokens[0].startsWith('v')) {
+      buildArgs.push('-t');
+      buildArgs.push(`${dockerUserName}/${dockerRepo}:${[dockerTagTokens[0], dockerTagTokens[1]].join('.')}`);
+      buildArgs.push('-t');
+      buildArgs.push(`${dockerUserName}/${dockerRepo}:${dockerTagTokens[0]}`);
+    }
+
+    await exec.exec('docker', buildArgs);
     await exec.exec('docker', ['login', '-u', dockerUserName, '--password-stdin'], {input: dockerToken});
     await exec.exec('docker', ['push', dockerFullName]);
     await exec.exec('docker', ['logout']);
