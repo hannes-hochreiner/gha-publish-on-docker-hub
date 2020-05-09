@@ -30,6 +30,8 @@ export async function run(core, exec, env, logger) {
     for (let tagName of tagNames) {
       await exec.exec('docker', ['push', tagName]);
     }
+
+    core.setOutput('images', tagNames.join(','));
   } catch (error) {
     core.setFailed(error.message);
   } finally {

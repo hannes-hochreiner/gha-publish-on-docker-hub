@@ -1,4 +1,5 @@
 name: 'Publish on Docker Hub'
+author: 'Hannes Hochreiner <hannes@hochreiner.net>'
 description: 'Publish a package on Docker Hub'
 inputs:
   docker-user-name:
@@ -7,6 +8,9 @@ inputs:
   docker-token:
     description: 'Docker token'
     required: true
+outputs:
+  images:
+    description: 'A comma-separated list of images that were published'
 runs:
   using: 'node12'
   main: 'dist/main.js'

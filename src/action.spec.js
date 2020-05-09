@@ -5,7 +5,8 @@ describe('Action run', () => {
   it('can create and push a Docker image', async () => {
     await run(new SequenceSpy([
       {name: 'getInput', args: ['docker-user-name'], return: 'dockerUserName'},
-      {name: 'getInput', args: ['docker-token'], return: 'dockerToken'}
+      {name: 'getInput', args: ['docker-token'], return: 'dockerToken'},
+      {name: 'setOutput', args: ['images', 'dockerUserName/testRepo:master']}
     ]), new SequenceSpy([
       {name: 'exec', args: ['docker', ['build', '.', '-t', 'dockerUserName/testRepo:master']]},
       {name: 'exec', args: ['docker', ['login', '-u', 'dockerUserName', '--password-stdin'], {input: 'dockerToken'}]},
@@ -24,7 +25,8 @@ describe('Action run', () => {
   it('can create and push a Docker image with multiple tags', async () => {
     await run(new SequenceSpy([
       {name: 'getInput', args: ['docker-user-name'], return: 'dockerUserName'},
-      {name: 'getInput', args: ['docker-token'], return: 'dockerToken'}
+      {name: 'getInput', args: ['docker-token'], return: 'dockerToken'},
+      {name: 'setOutput', args: ['images', 'dockerUserName/testRepo:v1.2.3,dockerUserName/testRepo:v1.2,dockerUserName/testRepo:v1']}
     ]), new SequenceSpy([
       {name: 'exec', args: ['docker', ['build', '.', '-t', 'dockerUserName/testRepo:v1.2.3', '-t', 'dockerUserName/testRepo:v1.2', '-t', 'dockerUserName/testRepo:v1']]},
       {name: 'exec', args: ['docker', ['login', '-u', 'dockerUserName', '--password-stdin'], {input: 'dockerToken'}]},
