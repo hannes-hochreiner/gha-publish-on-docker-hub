@@ -8,12 +8,12 @@ export async function run(core, exec, env, logger) {
     logger.log(`GITHUB_REF: ${env.GITHUB_REF}`);
     logger.log(`GITHUB_REPOSITORY: ${env.GITHUB_REPOSITORY}`);
 
-    let tagNames = [`${dockerUserName}/${dockerRepo}:${dockerTag}`];
+    let tagNames = [`docker.io/${dockerUserName}/${dockerRepo}:${dockerTag}`];
     const dockerTagTokens = dockerTag.split('.');
 
     if (dockerTagTokens.length == 3 && dockerTagTokens[0].startsWith('v')) {
-      tagNames.push(`${dockerUserName}/${dockerRepo}:${[dockerTagTokens[0], dockerTagTokens[1]].join('.')}`);
-      tagNames.push(`${dockerUserName}/${dockerRepo}:${dockerTagTokens[0]}`);
+      tagNames.push(`docker.io/${dockerUserName}/${dockerRepo}:${[dockerTagTokens[0], dockerTagTokens[1]].join('.')}`);
+      tagNames.push(`docker.io/${dockerUserName}/${dockerRepo}:${dockerTagTokens[0]}`);
     }
 
     let buildArgs = tagNames.reduce(function(acc, curr) {
