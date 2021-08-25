@@ -8,6 +8,9 @@ inputs:
   docker-token:
     description: 'Docker token'
     required: true
+  docker-targets:
+    description: 'Docker targets'
+    required: false
 outputs:
   images:
     description: 'A comma-separated list of images that were published'
