@@ -19,7 +19,6 @@ describe('Action run', () => {
       {name: 'log', args: ['GITHUB_REF: 1/2/master']},
       {name: 'log', args: ['GITHUB_REPOSITORY: 1/testRepo']}
     ]));
-    expect(true).toBe(true);
   });
 
   it('can create and push a Docker image with multiple tags', async () => {
@@ -41,6 +40,5 @@ describe('Action run', () => {
       {name: 'log', args: ['GITHUB_REF: 1/2/v1.2.3']},
       {name: 'log', args: ['GITHUB_REPOSITORY: 1/testRepo']}
     ]));
-    expect(true).toBe(true);
   });
 });
