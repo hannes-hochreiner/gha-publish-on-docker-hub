@@ -6,11 +6,11 @@ describe('Action run', () => {
     await run(new SequenceSpy([
       {name: 'getInput', args: ['docker-user-name'], return: 'dockerUserName'},
       {name: 'getInput', args: ['docker-token'], return: 'dockerToken'},
-      {name: 'setOutput', args: ['images', 'dockerUserName/testRepo:master']}
+      {name: 'setOutput', args: ['images', 'docker.io/dockerUserName/testRepo:master']}
     ]), new SequenceSpy([
-      {name: 'exec', args: ['docker', ['build', '.', '-t', 'dockerUserName/testRepo:master']]},
+      {name: 'exec', args: ['docker', ['build', '.', '-t', 'docker.io/dockerUserName/testRepo:master']]},
       {name: 'exec', args: ['docker', ['login', '-u', 'dockerUserName', '--password-stdin'], {input: 'dockerToken'}]},
-      {name: 'exec', args: ['docker', ['push', 'dockerUserName/testRepo:master']]},
+      {name: 'exec', args: ['docker', ['push', 'docker.io/dockerUserName/testRepo:master']]},
       {name: 'exec', args: ['docker', ['logout']]},
     ]), {
       GITHUB_REF: '1/2/master',
@@ -26,13 +26,13 @@ describe('Action run', () => {
     await run(new SequenceSpy([
       {name: 'getInput', args: ['docker-user-name'], return: 'dockerUserName'},
       {name: 'getInput', args: ['docker-token'], return: 'dockerToken'},
-      {name: 'setOutput', args: ['images', 'dockerUserName/testRepo:v1.2.3,dockerUserName/testRepo:v1.2,dockerUserName/testRepo:v1']}
+      {name: 'setOutput', args: ['images', 'docker.io/dockerUserName/testRepo:v1.2.3,docker.io/dockerUserName/testRepo:v1.2,docker.io/dockerUserName/testRepo:v1']}
     ]), new SequenceSpy([
-      {name: 'exec', args: ['docker', ['build', '.', '-t', 'dockerUserName/testRepo:v1.2.3', '-t', 'dockerUserName/testRepo:v1.2', '-t', 'dockerUserName/testRepo:v1']]},
+      {name: 'exec', args: ['docker', ['build', '.', '-t', 'docker.io/dockerUserName/testRepo:v1.2.3', '-t', 'docker.io/dockerUserName/testRepo:v1.2', '-t', 'docker.io/dockerUserName/testRepo:v1']]},
       {name: 'exec', args: ['docker', ['login', '-u', 'dockerUserName', '--password-stdin'], {input: 'dockerToken'}]},
-      {name: 'exec', args: ['docker', ['push', 'dockerUserName/testRepo:v1.2.3']]},
-      {name: 'exec', args: ['docker', ['push', 'dockerUserName/testRepo:v1.2']]},
-      {name: 'exec', args: ['docker', ['push', 'dockerUserName/testRepo:v1']]},
+      {name: 'exec', args: ['docker', ['push', 'docker.io/dockerUserName/testRepo:v1.2.3']]},
+      {name: 'exec', args: ['docker', ['push', 'docker.io/dockerUserName/testRepo:v1.2']]},
+      {name: 'exec', args: ['docker', ['push', 'docker.io/dockerUserName/testRepo:v1']]},
       {name: 'exec', args: ['docker', ['logout']]},
     ]), {
       GITHUB_REF: '1/2/v1.2.3',
