@@ -20,6 +20,6 @@
     "babel-loader": "^8.1.0",
     "jasmine": "^3.5.0",
     "webpack": "^5.51.1",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.12"
   }
 }
